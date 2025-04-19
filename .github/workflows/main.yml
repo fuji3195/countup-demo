@@ -48,5 +48,5 @@ jobs:
       - name: Run simulation
         # repo 直下で Makefile の sim ターゲットを実行
         run: |
-          source venv/bin/activate
+          . venv/bin/activate
           make sim SIM=verilator

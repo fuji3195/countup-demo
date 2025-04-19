@@ -1,0 +1,6 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1745036164" />
+    <testcase name="test_countup_reset_and_count" classname="test_countup" file="/mnt/c/Users/littl/Documents/storage_application/spi_nand/verilog/verilator/simple_counter/testpys/test_countup.py" lineno="6" time="0.0015077590942382812" sim_time_ns="220.001" ratio_time="145912.56709424415" />
+  </testsuite>
+</testsuites>

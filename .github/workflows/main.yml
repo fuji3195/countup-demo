@@ -60,7 +60,7 @@ jobs:
         run: make sim SIM=verilator
 
       - name: List output files
-        run: ls -ltrh
+        run: ls -R .
       # 6. オプション：波形をアーティファクトとして保存
       - name: Upload VCD artifact
         if: always()

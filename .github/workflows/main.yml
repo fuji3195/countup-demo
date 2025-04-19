@@ -1,1 +1,59 @@
 
+# .github/workflows/ci.yml
+name: HDL Simulation CI
+
+# いつ走らせるか
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'testpys/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'testpys/**'
+
+jobs:
+  simulate:
+    name: Run Cocotb Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. リポジトリをチェックアウト
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Python と pip セットアップ
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.13'
+
+      # 3. Cocotb をインストール
+      - name: Install Cocotb
+        run: |
+          python -m pip install --upgrade pip
+          pip install cocotb
+
+      # 4. Verilator をインストール
+      - name: Install Verilator
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y verilator
+
+      # 5. シミュレーション実行
+      - name: Run simulation
+        # repo 直下で Makefile の sim ターゲットを実行
+        run: make sim SIM=verilator
+
+      # 6. オプション：波形をアーティファクトとして保存
+      - name: Upload VCD artifact
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: waveforms
+          path: sim_build/wave.vcd

@@ -59,6 +59,8 @@ jobs:
         # repo 直下で Makefile の sim ターゲットを実行
         run: make sim SIM=verilator
 
+      - name: List output files
+        run: ls -ltrh; ls -ltrh sim_build
       # 6. オプション：波形をアーティファクトとして保存
       - name: Upload VCD artifact
         if: always()

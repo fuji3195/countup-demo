@@ -57,4 +57,6 @@ jobs:
       # 5. シミュレーション実行
       - name: Run simulation
         # repo 直下で Makefile の sim ターゲットを実行
-        run: make sim SIM=verilator
+        run: |
+          unset PYTHONHOME
+          make sim SIM=verilator

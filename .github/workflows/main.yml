@@ -1,5 +1,5 @@
 
-# .github/workflows/ci.yml
+# .github/workflows/main.yml
 name: HDL Simulation CI
 
 # いつ走らせるか
@@ -8,14 +8,16 @@ on:
     branches:
       - main
     paths:
-      - 'src/**'
-      - 'testpys/**'
+      - src/**
+      - testpys/**
+      - .github/workflows/**
   pull_request:
     branches:
       - main
     paths:
-      - 'src/**'
-      - 'testpys/**'
+      - src/*
+      - testpys/**
+      - .github/workflows/**
 
 jobs:
   simulate:
@@ -26,9 +28,16 @@ jobs:
       # 1. リポジトリをチェックアウト
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      - name: Cache python deps
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os}}-pip-${{ hashFiles('**/requirement.txt') }}
 
       # 2. Python と pip セットアップ
-      - name: Set up Python
+      - name: Set up Python 3.13
         uses: actions/setup-python@v4
         with:
           python-version: '3.13'

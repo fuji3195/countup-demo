@@ -35,3 +35,7 @@
 sim_build
 obj_dir
 venv
+
+*.fst
+*.vcd
+*.fsdb
